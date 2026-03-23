@@ -5,9 +5,9 @@ def get_team(team_name):
     return response.json()
 
 def parse_team(response):
-    if not response["teams"]:
+    if not response["team"]:
         raise ValueError("Team not found.")
-    team = response["teams"][0]
+    team = response["team"][0]
     return {
      "name": team["strTeam"],
      "league": team["strLeague"],
@@ -16,7 +16,7 @@ def parse_team(response):
      "formed_year": team["intFormedYear"],
     }
 
-def get_players(p):
+def get_player(p):
     response = requests.get(f"https://www.thesportsdb.com/api/v1/json/123/searchplayers.php?p={p}")
     return response.json()
     
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     while True:
         player_name = input("Enter basketball player name: ")
         try:
-            player_data = get_players(player_name)
+            player_data = get_player(player_name)
             parsed_player = parse_player(player_data)
             break
         except ValueError as e:

@@ -1,10 +1,10 @@
 import pytest
-from api_client import parse_team, get_team, parse_player, get_players
+from api_client import parse_team, get_team, parse_player, get_player
 from unittest.mock import patch
 
 def test_parse_team_returns_correct_fields():
     fake_response = {
-        "teams": [
+        "team": [
             {
             'strTeam': 'Los Angeles Lakers',
             'strLeague': 'NBA',
@@ -47,7 +47,7 @@ def test_parse_player_returns_correct_fields():
     assert result["position"] == "Shooting Guard"
 
 def test_parse_team_raises_error_when_not_found():
-    fake_response = {"teams": None}
+    fake_response = {"team": None}
     with pytest.raises(ValueError):
         parse_team(fake_response)
 
@@ -58,12 +58,12 @@ def test_parse_player_raises_error_when_not_found():
 
 @patch("api_client.requests.get")
 def test_get_team_calls_correct_url(mock_get):
-    mock_get.return_value.json.return_value = {'teams':[0]}
+    mock_get.return_value.json.return_value = {'team':[0]}
     result = get_team("Los Angeles Lakers")
     mock_get.assert_called_with("https://www.thesportsdb.com/api/v1/json/123/searchteams.php?t=Los Angeles Lakers")
 
 @patch("api_client.requests.get")
 def test_get_player_calls_correct_url(mock_get):
     mock_get.return_value.json.return_value = {'player':[0]}
-    result = get_players("Kobe Bryant")
+    result = get_player("Kobe Bryant")
     mock_get.assert_called_with("https://www.thesportsdb.com/api/v1/json/123/searchplayers.php?p=Kobe Bryant")

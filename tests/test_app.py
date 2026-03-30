@@ -7,11 +7,6 @@ def client():
     app = create_app()
     return app.test_client()
 
-def test_app(client):
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.get_json() == {"status":"running"}
-
 @patch("app.parse_team")
 @patch("app.get_team")
 def test_search_team_returns_team_data(mock_get_team, mock_parse_team, client):

@@ -5,9 +5,9 @@ def get_team(team_name):
     return response.json()
 
 def parse_team(response):
-    if not response["team"]:
+    if not response["teams"]:
         raise ValueError("Team not found.")
-    team = response["team"][0]
+    team = response["teams"][0]
     return {
      "name": team["strTeam"],
      "league": team["strLeague"],

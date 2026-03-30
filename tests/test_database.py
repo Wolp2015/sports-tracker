@@ -1,4 +1,4 @@
-from database import get_team, save_team, get_player, save_player
+from database import get_saved_team, save_team, get_saved_player, save_player
 
 fake_team = {
     "name": "Los Angeles Lakers",
@@ -24,13 +24,13 @@ def test_save_team_returns_an_id(db):
     assert isinstance(team_id, int)
     assert team_id > 0
 
-def test_get_team_returns_empty_list(db):
-    result = get_team(db)
+def test_get_saved_team_returns_empty_list(db):
+    result = get_saved_team(db)
     assert result == []
 
 def test_save_team_can_be_retrieved(db):
     new_team = save_team(db, fake_team)
-    result = get_team(db)
+    result = get_saved_team(db)
     assert len(result) == 1
     assert result[0]["name"] == "Los Angeles Lakers"
 
@@ -39,12 +39,12 @@ def test_save_player_returns_an_id(db):
     assert isinstance(player_id, int)
     assert player_id > 0
 
-def test_get_player_returns_empty_list(db):
-    result = get_player(db)
+def test_get_saved_player_returns_empty_list(db):
+    result = get_saved_player(db)
     assert result == []
 
 def test_save_player_can_be_retrieved(db):
     new_player = save_player(db, fake_player)
-    result = get_player(db)
+    result = get_saved_player(db)
     assert len(result) == 1
     assert result[0]["name"] == "Tom Brady"

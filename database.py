@@ -43,7 +43,7 @@ def save_player(conn, player):
         cursor.execute("INSERT INTO player (player_id, name, team, nationality, born, status, position) VALUES(?,?,?,?,?,?,?)", (player["player_id"], player["name"],player["team"],player["nationality"], player["born"], player["status"], player["position"] ))
     return cursor.lastrowid
 
-def get_team(conn):
+def get_saved_team(conn):
     cursor = conn.cursor()
     select_query = "SELECT id, name, league, stadium, location, formed_year FROM team"
     cursor.execute(select_query)
@@ -61,7 +61,7 @@ def get_team(conn):
         })
     return team
 
-def get_player(conn):
+def get_saved_player(conn):
     cursor = conn.cursor()
     select_query = "SELECT player_id, name, team, nationality, born, status, position FROM player"
     cursor.execute(select_query)
